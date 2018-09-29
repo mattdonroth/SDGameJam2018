@@ -1,0 +1,52 @@
+window.onload = function(){var renderer = PIXI.autoDetectRenderer(800,600);
+document.body.appendChild(renderer.view);
+
+var stage = new PIXI.Container();
+
+window.WebFontConfig = {
+    google: {
+        families: ['Snippet', 'Arvo:700italic', 'Podkova:700']
+    },
+
+    activa: function(){
+        init();
+    }
+};
+
+(function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' === document.location.protocol ? 'https' : 'http') +
+    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+})();
+
+function init()
+{
+    var background =
+    PIXI.Sprite.fromImage('_assets/abstract-antique-backdrop-164005.jpg');
+    stage.addChild(background)
+
+    var spinningText = new PIXI.Text('Children Trying to Adult', {font: 'bold
+    60px Arial', fill: '#cc00ff', align: 'center', stroke: '#FFFFFF',
+    strokeThickness: 8 });
+    
+    spinningText.anchor.set(0.5);
+    spinningText.position.x = 310;
+    spinningText.position.y = 200;
+    
+    stage.addChild(spinningText);
+    
+
+    requestAnimationFrame(animate);
+
+    function animate(){
+        renderer.render(stage);
+
+        spinningText.rotation += 0.03;
+
+        requestAnimationFrame(animate);
+    }
+}
